@@ -5,7 +5,6 @@ import WeatherSummary from './components/WeatherSummary.vue';
 <template>
   <div class="container">
     <div>
-      <h1>Weather</h1>
       <WeatherSummary />
     </div>
   </div>
