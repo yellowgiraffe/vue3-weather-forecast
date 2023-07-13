@@ -12,10 +12,10 @@ const props = defineProps({
 const searchValue = ref('')
 const isLoading = ref(false)
 
-watch(props.data, (v) => {
-  searchValue.value = v.city
+watch(props.data, (newValue) => {
+  searchValue.value = newValue.city
+  console.log('WATCH')
 })
-
 </script>
 
 <template>
@@ -24,12 +24,13 @@ watch(props.data, (v) => {
       <template #title>
         <div class="mb-4">
           <span class="p-input-icon-right">
-            <i class="pi" :class="isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
+            <i class="cursor-pointer pi" :class="isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
             <InputText
               type="text"
               v-model="searchValue"
               placeholder="Search"
               style="width: 100%;"
+              @keyup.enter="$emit('updated', searchValue)"
             />
           </span>
         </div>

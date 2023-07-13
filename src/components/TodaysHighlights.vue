@@ -15,7 +15,7 @@ import Image from 'primevue/image'
           <div class="mb-4 flex justify-content-center align-items-center">
             <Image
               :src="'./src/assets/img/equalizer.png'"
-              :alt="currentWeatherStatus"
+              alt=""
               width="150"
             />
           </div>
@@ -33,7 +33,7 @@ import Image from 'primevue/image'
           <div class="mb-4 flex justify-content-center align-items-center" style="min-height: 150px;">
             <Image
               :src="'./src/assets/img/barometer.png'"
-              :alt="currentWeatherStatus"
+              alt=""
               width="150"
             />
           </div>
@@ -50,7 +50,7 @@ import Image from 'primevue/image'
           <div class="mb-4 flex justify-content-center align-items-center" style="min-height: 150px;">
             <Image
               :src="'./src/assets/img/sun-moving.png'"
-              :alt="currentWeatherStatus"
+              alt=""
               width="150"
             />
           </div>

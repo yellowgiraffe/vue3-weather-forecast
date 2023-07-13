@@ -3,12 +3,11 @@ import { ref, onMounted } from 'vue'
 import WeatherSummary from './components/WeatherSummary.vue'
 import TodaysHighlights from './components/TodaysHighlights.vue'
 
-const search = ref('Warsaw')
 const weatherInfo = ref(null)
 const summary = ref({
   temp: '',
   description: '',
-  city: 'Warsaw',
+  city: '',
   country: '',
   date: ''
 })
@@ -19,22 +18,38 @@ const wind = ref({
 })
 const pressure = ref('')
 const humidity = ref('')
+const sun = ref('')
 
-const getWeather = () => {
-  fetch(`${import.meta.env.VITE_BASE_URL}?q=${search.value}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`)
+const getWeather = (city) => {
+  if (!city) {
+    city = 'Warsaw'
+  }
+  fetch(`${import.meta.env.VITE_BASE_URL}?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`)
     .then((response) => response.json())
     .then((data) => {
-      weatherInfo.value = data
-      summary.value.temp = data.main.temp.toFixed()
-      summary.value.description = data.weather[0].description
-      summary.value.city = data.name
-      summary.value.country = data.sys.country
-      summary.value.date = new Date(data.dt * 1000).toLocaleDateString('us-US', {
-        weekday: "short",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+      console.log(data)
+      summary.value = {
+        temp: data.main.temp.toFixed(),
+        description: data.weather[0].description,
+        city: data.name,
+        country: data.sys.country,
+        date: new Date(data.dt * 1000).toLocaleDateString('us-US', {
+          weekday: "short",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      }
+      wind.value = {
+        speed: data.wind.speed,
+        deg: data.wind.deg
+      }
+      pressure.value = data.main.pressure
+      sun.value = {
+        sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString('us-US'),
+        sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString('us-US')
+      }
+      humidity.value = data.main.humidity
     })
 }
 
