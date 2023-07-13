@@ -3,28 +3,31 @@ import InputText from 'primevue/inputtext'
 import Image from 'primevue/image'
 import Card from 'primevue/card'
 import Divider from 'primevue/divider';
-import { ref, watch } from 'vue';
+import { ref, } from 'vue';
 
 const props = defineProps({
-  data: Object
+  summary: {
+    type: [Object, null],
+    required: true
+  },
+  isLoading: Boolean
 })
 
 const searchValue = ref('')
-const isLoading = ref(false)
 
-watch(props.data, (newValue) => {
-  searchValue.value = newValue.city
-  console.log('WATCH')
-})
+// watch(props.summary, (newValue) => {
+//   searchValue.value = newValue.city
+//   console.log('WATCH')
+// })
 </script>
 
 <template>
   <section class="col-4">
-    <Card style="width: 25em">
+    <Card v-if="props.summary" style="width: 25em">
       <template #title>
         <div class="mb-4">
           <span class="p-input-icon-right">
-            <i class="cursor-pointer pi" :class="isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
+            <i class="cursor-pointer pi" :class="props.isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
             <InputText
               type="text"
               v-model="searchValue"
@@ -36,21 +39,21 @@ watch(props.data, (newValue) => {
         </div>
         <div class="mb-4">
           <Image
-            :src="'./src/assets/img/weather-main/'+props.data.description+'.png'"
-            :alt="props.data.description"
+            :src="'./src/assets/img/weather-main/'+props.summary.description+'.png'"
+            :alt="props.summary.description"
             width="100"
           />
         </div>
-        {{ props.data.temp }} °C
+        {{ props.summary.temp }} °C
       </template>
       <template #content>
-        <div> {{ props.data.description }}</div>
+        <div> {{ props.summary.description }}</div>
         <Divider />
         <div class="mb-2">
-          <i class="pi pi-map-marker mr-1"></i> {{ props.data.city }}, {{ props.data.country }}
+          <i class="pi pi-map-marker mr-1"></i> {{ props.summary.city }}, {{ props.summary.country }}
         </div>
         <div>
-          <i class="pi pi-calendar mr-1"></i> {{ props.data.date }}
+          <i class="pi pi-calendar mr-1"></i> {{ props.summary.date }}
         </div>
       </template>
     </Card>

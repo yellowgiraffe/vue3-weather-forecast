@@ -3,7 +3,10 @@ import Card from 'primevue/card';
 import Image from 'primevue/image'
 
 const props = defineProps({
-  humidity: Number
+  coords: {
+    type: [Object, null],
+    required: true
+  }
 })
 </script>
 
@@ -13,17 +16,18 @@ const props = defineProps({
       <template #content>
         <div class="flex align-items-center gap-4">
           <Image
-            :src="'./src/assets/img/humidity.png'"
+            :src="'./src/assets/img/compass.png'"
             alt="Wind icon"
             width="150"
           />
           <div>
-            <h3 class="text-2xl">{{ props.humidity }} %</h3>
+            <h3 class="text-2xl">Longitude: {{ props.coords?.lon }}</h3>
             <p class="text-lg mb-4">
-              Humidity is the concentration of water vapor present in the air. Water vapor, the gaseous state of water, is generally invisible to the human eye.
+              Longitude measures distance east or west of the prime meridian.
             </p>
+            <h3 class="text-2xl">Latitude: {{ props.coords?.lat }}</h3>
             <p class="text-lg">
-              The same amount of water vapor results in higher relative humidity in cool air than warm air.
+              Latitude lines start at the equator (0 degrees latitude) and run east and west, parallel to the equator.
             </p>
           </div>
         </div>
