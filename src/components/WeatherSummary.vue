@@ -3,12 +3,19 @@ import InputText from 'primevue/inputtext'
 import Image from 'primevue/image'
 import Card from 'primevue/card'
 import Divider from 'primevue/divider';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+  data: Object
+})
 
 const searchValue = ref('')
 const isLoading = ref(false)
-const currentWeatherStatus = ref('thunderstorm')
-const currentTemp = ref(14)
+
+watch(props.data, (v) => {
+  searchValue.value = v.city
+})
+
 </script>
 
 <template>
@@ -17,7 +24,7 @@ const currentTemp = ref(14)
       <template #title>
         <div class="mb-4">
           <span class="p-input-icon-right">
-            <i class="pi" :class="isLoading ? 'pi-spin pi-spinner' : 'pi-search'" />
+            <i class="pi" :class="isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
             <InputText
               type="text"
               v-model="searchValue"
@@ -28,21 +35,21 @@ const currentTemp = ref(14)
         </div>
         <div class="mb-4">
           <Image
-            :src="'./src/assets/img/weather-main/'+currentWeatherStatus+'.png'"
-            :alt="currentWeatherStatus"
+            :src="'./src/assets/img/weather-main/'+props.data.description+'.png'"
+            :alt="props.data.description"
             width="100"
           />
         </div>
-        {{ currentTemp }} °C
+        {{ props.data.temp }} °C
       </template>
       <template #content>
-        <p> Thunderstorm </p>
+        <div> {{ props.data.description }}</div>
         <Divider />
         <div class="mb-2">
-          <i class="pi pi-map-marker mr-1"></i> Paris, FR
+          <i class="pi pi-map-marker mr-1"></i> {{ props.data.city }}, {{ props.data.country }}
         </div>
         <div>
-          <i class="pi pi-calendar mr-1"></i> Thu, March 16, 2023
+          <i class="pi pi-calendar mr-1"></i> {{ props.data.date }}
         </div>
       </template>
     </Card>
