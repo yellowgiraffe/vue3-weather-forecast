@@ -51,7 +51,7 @@ const getWeather = (city) => {
         description: desc,
         city: data.name,
         country: data.sys.country,
-        date: new Date(data.dt * 1000).toLocaleDateString('en-EN', {
+        date: new Date(data.dt * 1000).toLocaleDateString('us-US', {
           weekday: "short",
           year: "numeric",
           month: "long",
@@ -62,10 +62,11 @@ const getWeather = (city) => {
         speed: data.wind.speed,
         deg: data.wind.deg
       }
-      pressure.value = data.main.pressure
+      pressure.value = Math.round(data.main.pressure * 0.750062)
       sun.value = {
-        sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-EN'),
-        sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString('en-EN')
+        timezone: data.timezone,
+        sunrise: new Date((data.sys.sunrise + data.timezone) * 1000).toLocaleTimeString('us-US', { timeZone: 'Atlantic/Reykjavik'}),
+        sunset: new Date((data.sys.sunset + data.timezone) * 1000).toLocaleTimeString('us-US', { timeZone: 'Atlantic/Reykjavik'})
       }
       windGusts.value = data.wind.gust
       feelsLike.value = data.main.feels_like.toFixed()
