@@ -11,19 +11,19 @@ const props = defineProps({
 </script>
 
 <template>
-  <Card class="bg-gray-900" style="width: 20em">
+  <Card class="bg-gray-900 min-h-full">
     <template #subtitle>
       Wind
     </template>
     <template #content>
-      <div class="mb-4 flex justify-content-center align-items-center">
+      <div class="mb-4 flex justify-content-center align-items-center" style="min-height: 100px;">
         <Image
           :src="'./src/assets/img/equalizer.png'"
           alt="Wind icon"
-          width="150"
+          width="100"
         />
       </div>
-      <div class="flex justify-content-between mb-4">
+      <div class="flex flex-column md:flex-row justify-content-between text-center mb-4">
         <div class="text-4xl">
           {{ props.wind?.speed }}<span class="text-sm">m/s</span>
         </div>

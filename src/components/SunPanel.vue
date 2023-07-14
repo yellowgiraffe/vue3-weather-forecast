@@ -11,16 +11,16 @@ const props = defineProps({
 </script>
 
 <template>
-  <Card class="bg-gray-900" style="width: 20em">
+  <Card class="bg-gray-900 min-h-full">
     <template #subtitle>
       Sunrise and sunset
     </template>
     <template #content>
-      <div class="mb-4 flex justify-content-center align-items-center" style="min-height: 150px;">
+      <div class="mb-4 flex justify-content-center align-items-center" style="min-height: 100px;">
         <Image
           :src="'./src/assets/img/sun-moving.png'"
           alt=""
-          width="150"
+          width="100"
         />
       </div>
       <div class="flex justify-content-between mb-4">

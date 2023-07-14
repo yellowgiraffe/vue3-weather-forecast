@@ -13,49 +13,42 @@ const props = defineProps({
   isLoading: Boolean
 })
 
-const searchValue = ref('')
-
-// watch(props.summary, (newValue) => {
-//   searchValue.value = newValue.city
-//   console.log('WATCH')
-// })
+const searchValue = ref('Warsaw')
 </script>
 
 <template>
-  <section class="col-4">
-    <Card v-if="props.summary" style="width: 25em">
-      <template #title>
-        <div class="mb-4">
-          <span class="p-input-icon-right">
-            <i class="cursor-pointer pi" :class="props.isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
-            <InputText
-              type="text"
-              v-model="searchValue"
-              placeholder="Search"
-              style="width: 100%;"
-              @keyup.enter="$emit('updated', searchValue)"
-            />
-          </span>
-        </div>
-        <div class="mb-4">
-          <Image
-            :src="'./src/assets/img/weather-main/'+props.summary.description+'.png'"
-            :alt="props.summary.description"
-            width="100"
+  <Card v-if="props.summary" class="min-h-full">
+    <template #title>
+      <div class="mb-4">
+        <span class="p-input-icon-right">
+          <i class="cursor-pointer pi" :class="props.isLoading ? 'pi-spin pi-spinner' : 'pi-search'" @click="$emit('updated', searchValue)" />
+          <InputText
+            type="text"
+            v-model="searchValue"
+            placeholder="Search"
+            style="width: 100%;"
+            @keyup.enter="$emit('updated', searchValue)"
           />
-        </div>
-        {{ props.summary.temp }} °C
-      </template>
-      <template #content>
-        <div> {{ props.summary.description }}</div>
-        <Divider />
-        <div class="mb-2">
-          <i class="pi pi-map-marker mr-1"></i> {{ props.summary.city }}, {{ props.summary.country }}
-        </div>
-        <div>
-          <i class="pi pi-calendar mr-1"></i> {{ props.summary.date }}
-        </div>
-      </template>
-    </Card>
-  </section>
+        </span>
+      </div>
+      <div class="mb-4">
+        <Image
+          :src="`./src/assets/img/weather-main/${props.summary.description}.png`"
+          :alt="props.summary.description"
+          width="100"
+        />
+      </div>
+      {{ props.summary.temp }} °C
+    </template>
+    <template #content>
+      <div> {{ props.summary.description }}</div>
+      <Divider />
+      <div class="mb-2">
+        <i class="pi pi-map-marker mr-1"></i> {{ props.summary.city }}, {{ props.summary.country }}
+      </div>
+      <div>
+        <i class="pi pi-calendar mr-1"></i> {{ props.summary.date }}
+      </div>
+    </template>
+  </Card>
 </template>
