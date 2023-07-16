@@ -18,7 +18,7 @@ const props = defineProps({
     <template #content>
       <div class="mb-4 flex justify-content-center align-items-center" style="min-height: 100px;">
         <Image
-          :src="'./src/assets/img/sun-moving.png'"
+          :src="'./img/sun-moving.png'"
           alt=""
           width="100"
         />

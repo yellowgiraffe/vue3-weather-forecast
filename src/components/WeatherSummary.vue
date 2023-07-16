@@ -33,7 +33,7 @@ const searchValue = ref('Warsaw')
       </div>
       <div class="mb-4">
         <Image
-          :src="`./src/assets/img/weather-main/${props.summary.description}.png`"
+          :src="`./img/weather-main/${props.summary.description}.png`"
           :alt="props.summary.description"
           width="100"
         />

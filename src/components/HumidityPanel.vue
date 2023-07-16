@@ -12,7 +12,7 @@ const props = defineProps({
     <template #content>
       <div class="flex flex-column sm:flex-row align-items-center gap-4">
         <Image
-          :src="'./src/assets/img/humidity.png'"
+          :src="'./img/humidity.png'"
           alt="Wind icon"
           width="150"
         />
